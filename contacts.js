@@ -15,9 +15,8 @@ const readContact = async () => {
 };
 
 //=======================================list============================
-const listContacts = async () => {
-  return await readContact();
-};
+const listContacts = async () => readContact();
+
 //=====================================get================================
 const getContactById = async (contactId) => {
   const contact = await readContact();

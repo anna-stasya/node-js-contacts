@@ -22,32 +22,45 @@ const argv = program.opts();
 (async ({ action, id, name, email, phone }) => {
   try {
     switch (action) {
+      //=======================================list============================
       case "list":
         const list = await listContacts();
         console.table(list);
         break;
-
+      
+      //=====================================get================================
       case "get":
         const contactById = await getContactById(id);
         if (contactById) {
           console.log(chalk.blue("Contact found by id"));
           console.table(contactById);
-         } else {
+        } else {
           console.log(chalk.red("Contact not found"));
           console.table(contactById);
         }
         break;
 
+      //=====================================add================================
       case "add":
         const newContact = await addContact(name, email, phone);
+        if (!name || !email || !phone) {
+          console.log(chalk.red("Not found name, email, or phone"));
+        }
         console.log(chalk.green("Add new contact"));
         console.table(newContact);
         break;
 
+      //=====================================remove================================
       case "remove":
         const delContact = await removeContact(id);
-        console.log(chalk.yellow("remove contact"));
-        console.table(delContact);
+        if (delContact) {
+          console.log(chalk.yellow("remove contact"));
+          console.table(delContact);
+        } else {
+          console.log(chalk.red("Contact not found"));
+          console.table(delContact);
+        }
+
         break;
 
       default:
